@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @Author: indran
- * @Date:   2018-11-12 22:20:20
- * @Last Modified by:   indran
- * @Last Modified time: 2018-11-17 14:12:58
- */
 
 include_once('includes/header.php'); ?>
 
@@ -49,9 +43,14 @@ $data = selectFromTable('*' , 'nss_camp_reg ' , '  cp_delete = 0 ', $db);
 			<div class="card-body"> 
 
 
-				<h4 class="card-title">Existing Departments</h4>
-				<p class="card-description"> view all departments </p>
+				</br>
+		
+		<center>	<h3 class="h3 mb-3 font-weight-normal danger-text">Camp Activities</h3></center>
+		
 
+</br>
+
+				
 
 				<?php if($data): ?>
 					<div class="table-responsive">
@@ -59,8 +58,8 @@ $data = selectFromTable('*' , 'nss_camp_reg ' , '  cp_delete = 0 ', $db);
 						<table class="table dataTable table-hover">
 							<thead>
 								<tr>
-									<th class="text-uppercase">name</th>
 									<th class="text-uppercase">key</th>
+									<th class="text-uppercase">Name</th>
 									<th class="text-uppercase">date from</th>
 									<th class="text-uppercase">date to</th>
 									<th class="text-uppercase">added time</th>  
@@ -85,16 +84,16 @@ $data = selectFromTable('*' , 'nss_camp_reg ' , '  cp_delete = 0 ', $db);
 										</td>
 
 										<td>
-											<a title="edit" href="volunteer/imagecamp/<?php echo indexMe((int)isit('cp_id', $value, 0)); ?>" class="btn btn-sm btn-success ">
+											<a title="Image Upload" href="volunteer/imagecamp/<?php echo indexMe((int)isit('cp_id', $value, 0)); ?>" class="btn btn-sm btn-success ">
 												<i class="ti-image"></i>
 											</a>
-											<a title="edit" href="volunteer/viewcamp/<?php echo indexMe((int)isit('cp_id', $value, 0)); ?>" class="btn btn-sm btn-info ">
+											<a title="View" href="volunteer/viewcamp/<?php echo indexMe((int)isit('cp_id', $value, 0)); ?>" class="btn btn-sm btn-info ">
 												<i class="ti-eye"></i>
 											</a>
 											<a title="edit" href="volunteer/editcamp/<?php echo indexMe((int)isit('cp_id', $value, 0)); ?>" class="btn btn-sm btn-warning ">
 												<i class="ti-pencil-alt"></i>
 											</a>
-											<a title="edit" href="volunteer/campparticipant/<?php echo indexMe((int)isit('cp_id', $value, 0)); ?>" class="btn btn-sm btn-primary ">
+											<a title="Add" href="volunteer/campparticipant/<?php echo indexMe((int)isit('cp_id', $value, 0)); ?>" class="btn btn-sm btn-primary ">
 												<i class="fas fa-user-plus"></i>
 											</a>
 										</td>

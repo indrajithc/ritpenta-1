@@ -4,7 +4,7 @@
  * @Author: indran
  * @Date:   2018-10-17 16:48:54
  * @Last Modified by:   indran
- * @Last Modified time: 2018-11-18 18:50:19
+ * @Last Modified time: 2018-11-24 16:49:26
  */
 
 
@@ -55,6 +55,7 @@ $message=array(null,null);
 	<link rel="stylesheet" href="assets/css/datatables.min.css">
 	<link rel="stylesheet" href="assets/css/cropper.min.css">
 
+	<link rel="stylesheet" href="assets/css/lobibox.min.css">
 
 
 
@@ -111,7 +112,16 @@ $message=array(null,null);
 
 				</ul>
 				<ul class="navbar-nav navbar-nav-right">
-					<li class="nav-item dropdown">
+
+
+					<li class="nav-item  ml-4" >
+						<form action="admin/blooddonorsall">
+							<input type="text" name="group" class="form-control" placeholder="Enter Blood Group ..."> 
+						</form>
+					</li>
+
+
+					<li class="nav-item dropdown d-none">
 						<a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
 							<i class="mdi mdi-file-outline"></i>
 							<span class="count">0</span>
@@ -148,45 +158,12 @@ $message=array(null,null);
 										</a> -->
 									</div>
 								</li>
-								<li class="nav-item dropdown ml-4">
-									<a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
-										<i class="mdi mdi-bell-outline"></i>
-										<span class="count bg-success">0</span>
-									</a>
-									<div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="notificationDropdown">
-										<a class="dropdown-item py-3 border-bottom">
-											<p class="mb-0 font-weight-medium float-left">You have 0 new notifications </p>
-											<span class="badge badge-pill badge-primary float-right">View all</span>
-										</a>
-										<!-- <a class="dropdown-item preview-item py-3">
-											<div class="preview-thumbnail">
-												<i class="mdi mdi-alert m-auto text-primary"></i>
-											</div>
-											<div class="preview-item-content">
-												<h6 class="preview-subject font-weight-normal text-dark mb-1">Application Error</h6>
-												<p class="font-weight-light small-text mb-0"> Just now </p>
-											</div>
-										</a>
-										<a class="dropdown-item preview-item py-3">
-											<div class="preview-thumbnail">
-												<i class="mdi mdi-settings m-auto text-primary"></i>
-											</div>
-											<div class="preview-item-content">
-												<h6 class="preview-subject font-weight-normal text-dark mb-1">Settings</h6>
-												<p class="font-weight-light small-text mb-0"> Private message </p>
-											</div>
-										</a>
-										<a class="dropdown-item preview-item py-3">
-											<div class="preview-thumbnail">
-												<i class="mdi mdi-airballoon m-auto text-primary"></i>
-											</div>
-											<div class="preview-item-content">
-												<h6 class="preview-subject font-weight-normal text-dark mb-1">New user registration</h6>
-												<p class="font-weight-light small-text mb-0"> 2 days ago </p>
-											</div>
-										</a> -->
-									</div>
+								<li class="nav-item dropdown ml-4 notificationNew" id="get-notif">
 								</li>
+
+								<li class="nav-item dropdown ml-4 notificationNew" id="get-blood-r">
+								</li>
+
 
 								<li class="nav-item dropdown d-none d-xl-inline-block">
 									<a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
@@ -269,5 +246,70 @@ $message=array(null,null);
 											$message = $_SESSION['message'];
 											unset($_SESSION['message']);
 										}
+
+										?>
+
+										<script type="text/javascript">
+											
+
+											$(document) .ready(function($) {
+
+
+												
+
+												$attid = 'get-notif'; 
+												$.ajax(  { 
+													url: 'admin/includes/notifications.php',
+													method: "POST",
+													data: 'action='+$attid, 
+													success: function (response) {
+
+														$('#get-notif').html( response);
+													},
+													error: function () { 
+
+													}
+												}); 
+
+												$attid = 'get-blood-r'; 
+												$.ajax(  { 
+													url: 'admin/includes/notifications.php',
+													method: "POST",
+													data: 'action='+$attid, 
+													success: function (response) {
+
+														$('#get-blood-r').html( response);
+													},
+													error: function () { 
+
+													}
+												}); 
+
+												// location.href='admin/includes/notifications.php';
+												
+
+
+
+
+											});
+
+
+										</script>
+
+										<?php 
+
+
+										if ($_POST) { 
+											
+											$_SESSION['POST'] =  $_POST; 
+											echo "<script type='text/javascript'>location.href='".$_SERVER['REQUEST_URI']."'</script>";
+											exit();
+										}
+										if (isset($_SESSION ['POST'])) {
+											$_POST = $_SESSION['POST'];
+											unset($_SESSION['POST']);
+										}
+
+
 
 										?>

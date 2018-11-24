@@ -4,7 +4,7 @@
  * @Author: indran
  * @Date:   2018-11-12 20:42:11
  * @Last Modified by:   indran
- * @Last Modified time: 2018-11-20 17:44:47
+ * @Last Modified time: 2018-11-24 15:12:04
  */
 
 //(?=<!--)(.*)(?=-->)(.*)(?=\n)
@@ -138,95 +138,8 @@ if (isset($_POST['delete-perme'])) {
 								?>
 
 								<?php if($details): ?>
+									<div class="table-responsive">
 
-									<table class="table dataTable ">
-										<thead>
-											<tr>
-												<th>b group</th>
-												<th>Name</th>
-												<th>Email</th>
-												<th>Mobile</th>
-												<th>Location</th>
-												<th>time</th>
-												<th></th>
-											</tr>
-										</thead>
-										<tbody>
-											<?php foreach ($details as $key => $value): ?>
-
-												<tr>
-													<td><?php echo isit('req_bg', $value); ?></td>
-													<td><?php echo isit('req_name', $value); ?></td>
-													<td><?php echo isit('req_email', $value); ?></td>
-													<td><?php echo isit('req_mob', $value); ?></td>
-													<td><?php echo isit('req_loc', $value); ?></td>
-													<td> 
-														<time class="timeago" datetime="<?php echo isit('req_date', $value); ?>" title="<?php echo isit('req_date', $value); ?>">1 hour ago</time> </td> 
-														<td>
-															
-
-															<form accept="" method="post">
-																<input type="hidden" name="id" value="<?php echo indexMe( (int) isit('req_id', $value, 0)); ?>">
-
-																<button class="btn btn-sm btn-danger" name="make_read" value="1">readed</button>
-
-															</form>
-
-
-
-														</td>
-													</tr>
-
-
-
-												<?php endforeach; ?>
-
-											</tbody>
-
-										</table>
-
-									<?php endif; ?>
-
-
-
-
-								</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-							</div>
-						</div>
-						<div class="tab-pane fade" id="pills-delete" role="tabpanel" aria-labelledby="pills-delete-tab">
-
-							<div>
-
-
-
-
-								<div id="accordion-delete">
-
-
-
-
-
-
-									<?php 
-
-									$details = selectFromTable( '*', ' nss_bg_reqst' , ' req_status = 1 ',$db);
-
-									?>
-
-									<?php if($details): ?>
 
 										<table class="table dataTable ">
 											<thead>
@@ -237,6 +150,7 @@ if (isset($_POST['delete-perme'])) {
 													<th>Mobile</th>
 													<th>Location</th>
 													<th>time</th>
+													<th></th>
 													<th></th>
 												</tr>
 											</thead>
@@ -252,32 +166,33 @@ if (isset($_POST['delete-perme'])) {
 														<td> 
 															<time class="timeago" datetime="<?php echo isit('req_date', $value); ?>" title="<?php echo isit('req_date', $value); ?>">1 hour ago</time> </td> 
 															<td>
-
+																
 
 																<form accept="" method="post">
 																	<input type="hidden" name="id" value="<?php echo indexMe( (int) isit('req_id', $value, 0)); ?>">
 
-																	<button class="btn btn-sm btn-danger" name="delete-perme" value="1">delete</button>
+																	<button class="btn btn-sm btn-danger" name="make_read" value="1">readed</button>
 
 																</form>
 
 
 
-															</td>
-														</tr>
+															</td>    
+															<td><a href="admin/brequest/<?php echo  indexMe($value['req_id']); ?>"   class="btn btn-sm btn-primary "  ><i class="far fa-eye"></i></a>
+
+															</tr>
 
 
 
-													<?php endforeach; ?>
+														<?php endforeach; ?>
 
-												</tbody>
+													</tbody>
 
-											</table>
+												</table>
+
+											</div>
 
 										<?php endif; ?>
-
-
-
 
 
 
@@ -288,15 +203,107 @@ if (isset($_POST['delete-perme'])) {
 
 
 
-								</div>
 
-							</div> 
+
+
+
+
+
+
+
+								</div>
+							</div>
+							<div class="tab-pane fade" id="pills-delete" role="tabpanel" aria-labelledby="pills-delete-tab">
+
+								<div>
+
+
+
+
+									<div id="accordion-delete">
+
+
+
+
+
+
+										<?php 
+
+										$details = selectFromTable( '*', ' nss_bg_reqst' , ' req_status = 1 ',$db);
+
+										?>
+
+										<?php if($details): ?>
+
+											<table class="table dataTable ">
+												<thead>
+													<tr>
+														<th>b group</th>
+														<th>Name</th>
+														<th>Email</th>
+														<th>Mobile</th>
+														<th>Location</th>
+														<th>time</th>
+														<th></th>
+													</tr>
+												</thead>
+												<tbody>
+													<?php foreach ($details as $key => $value): ?>
+
+														<tr>
+															<td><?php echo isit('req_bg', $value); ?></td>
+															<td><?php echo isit('req_name', $value); ?></td>
+															<td><?php echo isit('req_email', $value); ?></td>
+															<td><?php echo isit('req_mob', $value); ?></td>
+															<td><?php echo isit('req_loc', $value); ?></td>
+															<td> 
+																<time class="timeago" datetime="<?php echo isit('req_date', $value); ?>" title="<?php echo isit('req_date', $value); ?>">1 hour ago</time> </td> 
+																<td>
+
+
+																	<form accept="" method="post" onsubmit="return confirm('do you really want to continue this action ? ');">
+																		<input type="hidden" name="id" value="<?php echo indexMe( (int) isit('req_id', $value, 0)); ?>">
+
+																		<button class="btn btn-sm btn-danger" name="delete-perme" value="1">delete</button>
+
+																	</form>
+
+
+
+																</td>
+															</tr>
+
+
+
+														<?php endforeach; ?>
+
+													</tbody>
+
+												</table>
+
+											<?php endif; ?>
+
+
+
+
+
+
+
+										</div>
+
+
+
+
+
+									</div>
+
+								</div> 
+							</div>
+
 						</div>
 
 					</div>
 
 				</div>
-
 			</div>
-		</div>
-		<?php include_once('includes/footer.php'); ?>
+			<?php include_once('includes/footer.php'); ?>

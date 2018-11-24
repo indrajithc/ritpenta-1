@@ -1,11 +1,6 @@
 <?php
 
-/**
- * @Author: indran
- * @Date:   2018-10-17 16:48:54
- * @Last Modified by:   indran
- * @Last Modified time: 2018-11-13 06:32:14
- */
+
 
 include_once('../global.php'); ?>
 <?php include_once('../root/functions.php'); ?>
@@ -123,88 +118,19 @@ if (isset($sudo[0] )) {
 
 				</ul>
 				<ul class="navbar-nav navbar-nav-right">
-					<li class="nav-item dropdown">
-						<a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-							<i class="mdi mdi-file-outline"></i>
-							<span class="count">0</span>
-						</a>
-						<div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="messageDropdown">
-							<a class="dropdown-item py-3">
-								<p class="mb-0 font-weight-medium float-left">You have 0 unread mails </p>
-								<span class="badge badge-pill badge-primary float-right">View all</span>
-							</a>
-							<div class="dropdown-divider"></div>
-							<!-- <a class="dropdown-item preview-item">
-								<div class="preview-thumbnail">
-									<img src="assets/image/default/user.png" alt="image" class="img-sm profile-pic"> </div>
-									<div class="preview-item-content flex-grow py-2">
-										<p class="preview-subject ellipsis font-weight-medium text-dark">Marian Garner </p>
-										<p class="font-weight-light small-text"> The meeting is cancelled </p>
-									</div>
-								</a>
-								<a class="dropdown-item preview-item">
-									<div class="preview-thumbnail">
-										<img src="assets/image/default/user.png" alt="image" class="img-sm profile-pic"> </div>
-										<div class="preview-item-content flex-grow py-2">
-											<p class="preview-subject ellipsis font-weight-medium text-dark">David Grey </p>
-											<p class="font-weight-light small-text"> The meeting is cancelled </p>
-										</div>
-									</a>
-									<a class="dropdown-item preview-item">
-										<div class="preview-thumbnail">
-											<img src="assets/image/default/user.png" alt="image" class="img-sm profile-pic"> </div>
-											<div class="preview-item-content flex-grow py-2">
-												<p class="preview-subject ellipsis font-weight-medium text-dark">Travis Jenkins </p>
-												<p class="font-weight-light small-text"> The meeting is cancelled </p>
-											</div>
-										</a> -->
-									</div>
-								</li>
-								<li class="nav-item dropdown ml-4">
-									<a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
-										<i class="mdi mdi-bell-outline"></i>
-										<span class="count bg-success">0</span>
-									</a>
-									<div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="notificationDropdown">
-										<a class="dropdown-item py-3 border-bottom">
-											<p class="mb-0 font-weight-medium float-left">You have 0 new notifications </p>
-											<span class="badge badge-pill badge-primary float-right">View all</span>
-										</a>
-										<!-- <a class="dropdown-item preview-item py-3">
-											<div class="preview-thumbnail">
-												<i class="mdi mdi-alert m-auto text-primary"></i>
-											</div>
-											<div class="preview-item-content">
-												<h6 class="preview-subject font-weight-normal text-dark mb-1">Application Error</h6>
-												<p class="font-weight-light small-text mb-0"> Just now </p>
-											</div>
-										</a>
-										<a class="dropdown-item preview-item py-3">
-											<div class="preview-thumbnail">
-												<i class="mdi mdi-settings m-auto text-primary"></i>
-											</div>
-											<div class="preview-item-content">
-												<h6 class="preview-subject font-weight-normal text-dark mb-1">Settings</h6>
-												<p class="font-weight-light small-text mb-0"> Private message </p>
-											</div>
-										</a>
-										<a class="dropdown-item preview-item py-3">
-											<div class="preview-thumbnail">
-												<i class="mdi mdi-airballoon m-auto text-primary"></i>
-											</div>
-											<div class="preview-item-content">
-												<h6 class="preview-subject font-weight-normal text-dark mb-1">New user registration</h6>
-												<p class="font-weight-light small-text mb-0"> 2 days ago </p>
-											</div>
-										</a> -->
-									</div>
-								</li>
 
-								<li class="nav-item dropdown d-none d-xl-inline-block">
-									<a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-										
-										<img class="img-xs rounded-circle" src="assets/image/default/user.png" alt="Profile image"> </a>
-										<div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+
+					<li class="nav-item dropdown ml-4 notificationNew" id="get-notif">
+					</li>
+
+					<li class="nav-item dropdown ml-4 notificationNew" id="get-blood-r">
+					</li>
+
+					<li class="nav-item dropdown d-none d-xl-inline-block">
+						<a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+
+							<img class="img-xs rounded-circle" src="assets/image/default/user.png" alt="Profile image"> </a>
+							<div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
 									<!-- 		<a class="dropdown-item p-0">
 												<div class="d-flex border-bottom">
 													<div class="py-3 px-4 d-flex align-items-center justify-content-center">
@@ -279,6 +205,8 @@ if (isset($sudo[0] )) {
 
 									<div class="content-wrapper">
 
+
+
 										<?php
 										if (isset($_SESSION['message'])) {
 											$message = $_SESSION['message'];
@@ -287,3 +215,65 @@ if (isset($sudo[0] )) {
 
 										?>
 
+										<script type="text/javascript">
+											
+
+											$(document) .ready(function($) {
+
+
+												$attid = 'get-notif'; 
+												$.ajax(  { 
+													url: 'volunteer/includes/notifications.php',
+													method: "POST",
+													data: 'action='+$attid, 
+													success: function (response) {
+														console.log(response);
+														$('#get-notif').html( response);
+													},
+													error: function () { 
+
+													}
+												}); 
+
+												// $attid = 'get-blood-r'; 
+												// $.ajax(  { 
+												// 	url: 'admin/includes/notifications.php',
+												// 	method: "POST",
+												// 	data: 'action='+$attid, 
+												// 	success: function (response) {
+
+												// 		$('#get-blood-r').html( response);
+												// 	},
+												// 	error: function () { 
+
+												// 	}
+												// }); 
+
+												// location.href='admin/includes/notifications.php';
+												
+
+
+
+
+											});
+
+
+										</script>
+
+										<?php 
+
+
+										if ($_POST) { 
+											
+											$_SESSION['POST'] =  $_POST; 
+											echo "<script type='text/javascript'>location.href='".$_SERVER['REQUEST_URI']."'</script>";
+											exit();
+										}
+										if (isset($_SESSION ['POST'])) {
+											$_POST = $_SESSION['POST'];
+											unset($_SESSION['POST']);
+										}
+
+
+
+										?>

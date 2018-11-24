@@ -1,11 +1,6 @@
 <?php
 
-/**
- * @Author: indran
- * @Date:   2018-10-17 17:28:08
- * @Last Modified by:   indran
- * @Last Modified time: 2018-11-17 22:20:21
- */
+
 ?>
 
 
@@ -37,7 +32,7 @@
 <li class="nav-item">
 	<a class="nav-link" href="volunteer/viewcamp">
 		<i class="fas fa-tachometer-alt  pr-4"></i>
-		<span class="menu-title">View Camp</span>
+		<span class="menu-title" >Camp Acivities</span>
 	</a>
 </li>
 
@@ -45,7 +40,7 @@
 <li class="nav-item">
 	<a class="nav-link" href="volunteer/viewevent">
 		<i class="fas fa-tachometer-alt  pr-4"></i>
-		<span class="menu-title">View Event</span>
+		<span class="menu-title">Regular Activities</span>
 	</a>
 </li>
 

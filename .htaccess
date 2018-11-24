@@ -78,6 +78,10 @@ RewriteRule ^admin/imageaward/([^/]+)$ admin/imageaward.php?id=$1 [L]
 
 
 RewriteRule ^admin/brequest$ admin/brequest.php [L] 
+RewriteRule ^admin/blooddonorsall$ admin/blooddonorsall.php [L] 
+
+RewriteRule ^admin/brequest$ admin/brequest.php [L] 
+RewriteRule ^admin/brequest/([^/]+)$ admin/brequesteach.php?id=$1 [L] 
 
 
 
@@ -117,7 +121,10 @@ RewriteRule ^volunteer/edit_vol/([^/]+)$ volunteer/edit_vol.php?id=$1 [L]
 RewriteRule ^volunteer/blooddonors$	 volunteer/blooddonors.php [L]  
 
 
-RewriteRule ^volunteer/brequest$ admin/brequest.php [L] 
+
+
+RewriteRule ^volunteer/brequest$ volunteer/brequest.php [L] 
+RewriteRule ^volunteer/brequest/([^/]+)$ volunteer/brequesteach.php?id=$1 [L] 
 
 #================ ======================================= ==================================
 

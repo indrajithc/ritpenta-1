@@ -1,13 +1,5 @@
 <?php
 
-/**
- * @Author: indran
- * @Date:   2018-11-11 19:17:02
- * @Last Modified by:   indran
- * @Last Modified time: 2018-11-11 20:22:53
- */ 
-
-//(?=<!--)(.*)(?=-->)(.*)(?=\n)
 
 include_once('includes/header.php');
 
@@ -71,10 +63,14 @@ if (isset($_POST['make_delete'])) {
 
 
 
-			<div class="page-header">
-				<div class="h3 mb-3 bg-primary text-white"><h1>Event Details</h1>
-				</div>
-			</div>
+			
+</br>
+		
+		<center>	<h3 class="h3 mb-3 font-weight-normal danger-text">Regular Activities</h3></center>
+		
+
+</br>
+
 
 
 			<div class="table-responsive">
@@ -87,7 +83,7 @@ if (isset($_POST['make_delete'])) {
 							<th scope="col">Event date</th>
 							<th scope="col">Event working hours</th> 
 							<th class="text-uppercase">added time</th> 
-							<th class="text-uppercase">delete</th>
+							<th class="text-uppercase">Status</th>
 							<th class="text-uppercase">more</th>
 
 						</tr>
@@ -128,7 +124,7 @@ if (isset($_POST['make_delete'])) {
 									<form accept="" method="post">
 										<input type="hidden" name="id" value="<?php echo indexMe( (int) isit('event_id', $value, 0)); ?>">
 										<?php if( isit('event_delete', $value) == 0 ): ?>
-											<button class="btn btn-sm btn-danger" name="make_delete" value="1">delete</button>
+											<button class="btn btn-sm btn-danger" name="make_delete" value="1">Inactive</button>
 											<?php else: ?>
 												<button class="btn btn-sm btn-success" name="make_delete" value="0">active</button>
 											<?php endif; ?>
@@ -137,7 +133,7 @@ if (isset($_POST['make_delete'])) {
 
 									</td>
 									<td>
-										<a title="edit" href="admin/viewevent/<?php echo indexMe((int)isit('event_id', $value, 0)); ?>" class="btn btn-sm btn-info ">
+										<a title="view" href="admin/viewevent/<?php echo indexMe((int)isit('event_id', $value, 0)); ?>" class="btn btn-sm btn-primary ">
 											<i class="ti-eye"></i>
 										</a>
 										<a title="edit" href="admin/editevent/<?php echo indexMe((int)isit('event_id', $value, 0)); ?>" class="btn btn-sm btn-warning ">

@@ -4,7 +4,7 @@
  * @Author: indran
  * @Date:   2018-11-18 11:55:18
  * @Last Modified by:   indran
- * @Last Modified time: 2018-11-18 17:34:17
+ * @Last Modified time: 2018-11-24 15:12:26
  */
 include_once('includes/header.php'); ?>
 
@@ -21,7 +21,7 @@ if(isset($_POST['submit-btn'])){
 	$awrd_detls         =  $_POST['award_dtls']; 
 
 	
-	$stmnt=" SELECT * FROM nss_awards WHERE awrd_name= '" . $awrd_name ."' OR awrd_date= '" . $awrd_date ."' ";
+	$stmnt=" SELECT * FROM nss_awards WHERE awrd_name= '" . $awrd_name ."' AND awrd_date= '" . $awrd_date ."' ";
 	$result = $db->display( $stmnt);
 	if( $result ){
 		$message [0] = 2;

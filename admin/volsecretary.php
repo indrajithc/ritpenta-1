@@ -1,11 +1,6 @@
 <?php
 
-/**
- * @Author: indran
- * @Date:   2018-11-11 20:09:39
- * @Last Modified by:   indran
- * @Last Modified time: 2018-11-11 21:48:18
- */ 
+
 
 include_once('includes/header.php');
 
@@ -83,8 +78,8 @@ if (isset($_POST['make_remove'])) {
 	$istrue  = $db->execute_query(" DELETE FROM nss_log WHERE user_id = '$email' AND user_type = 'vsecretary' ");
 	if($istrue){
 
-		$message [0] = 1;
-		$message [1] = ' updated ';  
+		$message [0] = 3;
+		$message [1] = ' Successfully Removed ';  
 
 	}  else {
 
@@ -127,7 +122,7 @@ $details = $db->display($stmnt);
 			<form class="form" method="post" action="">
 
 
-				<h5  class="text-capitalize mt-3 text-left"> Slect a Volunteer</h5>
+				<h5  class="text-dark mt-3 text-left"><B> SELECT A VOLUNTEER</B></h5>
 
 
 				<?php  
@@ -140,7 +135,7 @@ $details = $db->display($stmnt);
 
 
 						<select  id="exampleInputcoordinator12" type="textarea" class="form-control select2" name="vol_id" placeholder="first camp coordinator " data-parsley-required="true"   >
-							<option selected disabled > select first coordinator  </option>
+							<option selected disabled > select Secretary  </option>
 							<?php if ($result):?>
 								<?php foreach ($result as $key => $value): ?>
 
@@ -158,7 +153,7 @@ $details = $db->display($stmnt);
 						</select> 
 					</div>
 					<div class="col-sm-3">
-						<button class="btn btn-info" type="submit" name="add-login" value="true">add</button>
+						<button class="btn btn-success" type="submit" name="add-login"  style="margin-top: 0.5rem;" value="true">add</button>
 					</div>
 				</div>
 
@@ -209,7 +204,7 @@ $details = $db->display($stmnt);
 									
 									<form accept="" method="post">
 										<input type="hidden" name="id" value="<?php echo indexMe( (int) isit('vol_id', $value, 0)); ?>"> 
-										<button class="btn btn-sm btn-danger" name="make_remove" value="1">remove</button> 
+										<button class="btn btn-sm  btn outline-dark btn-danger" name="make_remove" value="1"><i  class=" fa fa-trash"></i></button> 
 									</form>
 
 
