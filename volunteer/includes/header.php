@@ -54,13 +54,14 @@ if (isset($sudo[0] )) {
 
 
 
-
-	<link rel="stylesheet" href="volunteer/css/style_01.css"> 
-	<link rel="stylesheet" href="volunteer/css/style.css"> 
+	<link rel="stylesheet" href="admin/css/style_01.css"> 
+	<link rel="stylesheet" href="admin/css/style.css"> 
 	<link rel="stylesheet" href="assets/css/bootstrap-datetimepicker.min.css">
 	<link rel="stylesheet" href="assets/css/select2.min.css">
 	<link rel="stylesheet" href="assets/css/datatables.min.css">
 	<link rel="stylesheet" href="assets/css/cropper.min.css">
+
+	<link rel="stylesheet" href="assets/css/lobibox.min.css">
 
 
 
@@ -74,7 +75,6 @@ if (isset($sudo[0] )) {
 
 
 <link rel="shortcut icon" href="assets/image/favicon/favicon.ico" /> 
-
 
 <style type="text/css">
 

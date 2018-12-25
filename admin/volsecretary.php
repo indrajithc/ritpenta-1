@@ -202,7 +202,7 @@ $details = $db->display($stmnt);
 
 								<td >
 									
-									<form accept="" method="post">
+									<form accept="" method="post"  onsubmit="return confirm('do you really want to continue this action ? ');">
 										<input type="hidden" name="id" value="<?php echo indexMe( (int) isit('vol_id', $value, 0)); ?>"> 
 										<button class="btn btn-sm  btn outline-dark btn-danger" name="make_remove" value="1"><i  class=" fa fa-trash"></i></button> 
 									</form>

@@ -4,7 +4,7 @@
  * @Author: indran
  * @Date:   2018-11-17 22:01:27
  * @Last Modified by:   indran
- * @Last Modified time: 2018-11-24 15:12:19
+ * @Last Modified time: 2018-12-25 16:14:37
  */ 
 
 
@@ -116,51 +116,64 @@ if(isset($_POST['submit'])){
 
 
 
+	echo $chekres = selectFromTable( "bd_date", "nss_blood_donation", " bd_admno = '$admnno' AND  bd_delete = 0 AND bd_date >  (NOW() - INTERVAL 3 MONTH) ORDER BY bd_date DESC LIMIT 1 ", $db);
 
-	$stmnt='select * from nss_blood_donation where bd_admno= :bd_admno AND DATE(bd_date) = :date AND bd_delete = 0 ';
 
+	if($chekres ) {
 
-	$params=array( 
-		':bd_admno'   =>  $admnno  ,
-		':date' => $date
-	); 
-
-	if(!$db->display($stmnt,$params)){
+		$message [0] = 3;
+		$message [1] = $admnno  . "  not eligible for a blood donation now , wait for  "  . date('Y-m-d', strtotime("+3 months", strtotime($chekres ))) ; 
 
 
 
 
-		$params=array(
-			'bd_admno'        =>  $admnno,
-			'bd_group'       =>  $vol_bg,
-			'bd_email'         =>  $vol_emailid,
-			'bd_mobile'            =>  $vol_mob,
-			'bd_quantity'         =>  $vol_ml,
-			'bd_added_by'         =>  $_SESSION[SYSTEM_NAME . 'userid0']
+	} else {
 
-		);
+		$stmnt='select * from nss_blood_donation where bd_admno= :bd_admno AND DATE(bd_date) = :date AND bd_delete = 0 ';
 
-		$istrue = insertIntoTable( 'nss_blood_donation' , $params , $db);
-		if($istrue){
 
-			$message [0] = 1;
-			$message [1] = ' added '; 
+		$params=array( 
+			':bd_admno'   =>  $admnno  ,
+			':date' => $date
+		); 
+
+		if(!$db->display($stmnt,$params)){
 
 
 
-		} else {
-			$message [0] = 4;
-			$message [1] = ' error '; 
+
+			$params=array(
+				'bd_admno'        =>  $admnno,
+				'bd_group'       =>  $vol_bg,
+				'bd_email'         =>  $vol_emailid,
+				'bd_mobile'            =>  $vol_mob,
+				'bd_quantity'         =>  $vol_ml,
+				'bd_added_by'         =>  $_SESSION[SYSTEM_NAME . 'userid0']
+
+			);
+
+			$istrue = insertIntoTable( 'nss_blood_donation' , $params , $db);
+			if($istrue){
+
+				$message [0] = 1;
+				$message [1] = ' added '; 
+
+
+
+			} else {
+				$message [0] = 4;
+				$message [1] = ' error '; 
+
+
+			}
+		}else{
+		// $message=' value already exists';
+
+			$message [0] = 3;
+			$message [1] = '    already exists'; 
 
 
 		}
-	}else{
-		// $message=' value already exists';
-
-		$message [0] = 3;
-		$message [1] = '    already exists'; 
-
-
 	}
 }
 
@@ -256,7 +269,7 @@ if(isset($_POST['submit'])){
 
 <?php   if( !empty($details)): ?>
 
-	<form class="form-horizontal bordered-row" id="add-volunteer-01"  action="" method="post" >
+	<form class="form-horizontal bordered-row" id="add-volunteer-01"  action="" method="post" data-parsley-validate >
 
 		<div class="row">
 			<div class="col-md-6 col-sm-12">
@@ -301,15 +314,15 @@ if(isset($_POST['submit'])){
 						<div class="">
 							<select name="vol_bg" class="form-control"   required>
 
-								<option  value="A+"  selected  >Select</option>
-								<option  value="O+" <?php if( strtolower( $details['blood'] ) == "a" ) echo " selected "; ?> >O+ve</option>
-								<option  value="O-" <?php if( strtolower( $details['blood'] ) == "a" ) echo " selected "; ?> >O-ve</option>
-								<option  value="B+" <?php if( strtolower( $details['blood'] ) == "a" ) echo " selected "; ?> >B+ve</option>
-								<option  value="B-" <?php if( strtolower( $details['blood'] ) == "a" ) echo " selected "; ?> >B-ve</option>
-								<option  value="A+" <?php if( strtolower( $details['blood'] ) == "a" ) echo " selected "; ?> >A+ve</option>
-								<option  value="A-" <?php if( strtolower( $details['blood'] ) == "a" ) echo " selected "; ?> >A-ve</option>
-								<option  value="AB+" <?php if( strtolower( $details['blood'] ) == "a" ) echo " selected "; ?> >AB+ve</option>
-								<option  value="AB-" <?php if( strtolower( $details['blood'] ) == "a" ) echo " selected "; ?> >AB-ve</option>
+								<option disabled  selected  >Select</option>
+								<option  value="O+" <?php if( strtolower( $details['blood'] ) == "o+" ) echo " selected "; ?> >O+ve</option>
+								<option  value="O-" <?php if( strtolower( $details['blood'] ) == "o-" ) echo " selected "; ?> >O-ve</option>
+								<option  value="B+" <?php if( strtolower( $details['blood'] ) == "b+" ) echo " selected "; ?> >B+ve</option>
+								<option  value="B-" <?php if( strtolower( $details['blood'] ) == "b-" ) echo " selected "; ?> >B-ve</option>
+								<option  value="A+" <?php if( strtolower( $details['blood'] ) == "a+" ) echo " selected "; ?> >A+ve</option>
+								<option  value="A-" <?php if( strtolower( $details['blood'] ) == "a-" ) echo " selected "; ?> >A-ve</option>
+								<option  value="AB+" <?php if( strtolower( $details['blood'] ) == "ab+" ) echo " selected "; ?> >AB+ve</option>
+								<option  value="AB-" <?php if( strtolower( $details['blood'] ) == "ab-" ) echo " selected "; ?> >AB-ve</option>
 
 
 

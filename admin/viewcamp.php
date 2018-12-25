@@ -76,99 +76,97 @@ $data = selectFromTable('*' , 'nss_camp_reg ' , ' 1 ', $db);
 			<div class="card-body"> 
 
 
+				
+
+			</br>
+			
+			<center>	<h3 class="h3 mb-3 font-weight-normal danger-text">Camp Activities</h3></center>
 			
 
-</br>
-		
-		<center>	<h3 class="h3 mb-3 font-weight-normal danger-text">Camp Activities</h3></center>
-		
-
-</br>
+		</br>
 
 
-				<?php if($data): ?>
-					<div class="table-responsive">
+		<?php if($data): ?>
+			<div class="table-responsive">
 
-						<table class="table dataTable table-hover">
-							<thead>
-								<tr>
-									<th class="text-uppercase">key</th>
-									<th class="text-uppercase">name</th>
-									<th class="text-uppercase">date from</th>
-									<th class="text-uppercase">date to</th>
-									<th class="text-uppercase">added time</th> 
-									<th class="text-uppercase">status</th>
-									<th class="text-uppercase">more</th>
+				<table class="table dataTable table-hover">
+					<thead>
+						<tr> 
+							<th class="text-uppercase">name</th>
+							<th class="text-uppercase">date from</th>
+							<th class="text-uppercase">date to</th>
+							<th class="text-uppercase">added time</th> 
+							<th class="text-uppercase">status</th>
+							<th class="text-uppercase">more</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php foreach ($data as $key => $value): ?>
+
+
+							<tr> 
+								<td ><?php echo isit('cp_name', $value); ?></td>
+								<td ><?php echo isit('cp_date_frm', $value); ?></td>
+								<td ><?php echo isit('cp_date_to', $value); ?></td>
+								<td >
+
+									<time class="timeago" datetime="<?php echo isit('cp_date', $value); ?>" title="<?php echo isit('cp_date', $value); ?>">1 hour ago</time>
+
+
+
+								</td>
+
+								<td >
+									<form accept="" method="post"  onsubmit="return confirm('do you really want to continue this action ? ');">
+										<input type="hidden" name="id" value="<?php echo indexMe( (int) isit('cp_id', $value, 0)); ?>">
+										<?php if( isit('cp_delete', $value) == 0 ): ?>
+											<button class="btn btn-sm btn-danger" name="make_delete" value="1">Inactive</button>
+											<?php else: ?>
+												<button class="btn btn-sm btn-success" name="make_delete" value="0">active</button>
+											<?php endif; ?>
+										</form>
+
+
+									</td>
+									<td>
+										<a title="View" href="admin/viewcamp/<?php echo indexMe((int)isit('cp_id', $value, 0)); ?>" class="btn btn-sm btn-primary ">
+											<i class="ti-eye"></i>
+										</a>
+										<a title="edit" href="admin/editcamp/<?php echo indexMe((int)isit('cp_id', $value, 0)); ?>" class="btn btn-sm btn-warning" >
+											
+											<i class="ti-pencil-alt"></i>
+										</a>
+									</td>
 								</tr>
-							</thead>
-							<tbody>
-								<?php foreach ($data as $key => $value): ?>
-
-
-									<tr>
-										<td ><?php echo isit('cp_key', $value); ?></td>
-										<td ><?php echo isit('cp_name', $value); ?></td>
-										<td ><?php echo isit('cp_date_frm', $value); ?></td>
-										<td ><?php echo isit('cp_date_to', $value); ?></td>
-										<td >
-
-											<time class="timeago" datetime="<?php echo isit('cp_date', $value); ?>" title="<?php echo isit('cp_date', $value); ?>">1 hour ago</time>
 
 
 
-										</td>
+							<?php endforeach; ?>
+						</tbody>
+					</table>
 
-										<td >
-											<form accept="" method="post">
-												<input type="hidden" name="id" value="<?php echo indexMe( (int) isit('cp_id', $value, 0)); ?>">
-												<?php if( isit('cp_delete', $value) == 0 ): ?>
-													<button class="btn btn-sm btn-danger" name="make_delete" value="1">Inactive</button>
-													<?php else: ?>
-														<button class="btn btn-sm btn-success" name="make_delete" value="0">active</button>
-													<?php endif; ?>
-												</form>
-
-
-											</td>
-											<td>
-												<a title="View" href="admin/viewcamp/<?php echo indexMe((int)isit('cp_id', $value, 0)); ?>" class="btn btn-sm btn-primary ">
-													<i class="ti-eye"></i>
-												</a>
-												<a title="edit" href="admin/editcamp/<?php echo indexMe((int)isit('cp_id', $value, 0)); ?>" class="btn btn-sm btn-warning" >
-												
-													<i class="ti-pencil-alt"></i>
-												</a>
-											</td>
-										</tr>
-
-
-
-									<?php endforeach; ?>
-								</tbody>
-							</table>
-
-						</div>
-						<?php else: ?>
-							<div class="alert alert-warning text-center text-capitalize">
-								<p>no camp added</p>
-							</div>
-
-
-						<?php endif; ?>
-
-
-
-
-					</div>
 				</div>
+				<?php else: ?>
+					<div class="alert alert-warning text-center text-capitalize">
+						<p>no camp added</p>
+					</div>
+
+
+				<?php endif; ?>
+
 
 
 
 			</div>
-
 		</div>
 
 
 
+	</div>
 
-		<?php include_once('includes/footer.php'); ?>
+</div>
+
+
+
+
+<?php include_once('includes/footer.php'); ?>

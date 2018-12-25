@@ -2,6 +2,7 @@
 
 
 
+
 include_once('includes/header.php');
 
 
@@ -56,7 +57,8 @@ if(isset($_POST['submit-btn'])){
 	$event_date        =  $_POST['event_date'];
 	$event_hrs      =  $_POST['event_hrs'];
 	$event_dtls         =  $_POST['event_dtls'];
-	$event_id = $_POST['event_id'];
+
+
 
 
 	$eve_coordinator_1 = $_POST['eve_coordinator_1'];
@@ -81,17 +83,14 @@ if(isset($_POST['submit-btn'])){
 
 
 
-		$stmnt='select * from nss_event_reg where (  event_id= :event_id   AND  event_key = :event_key ) OR (  event_id= :event_id1  AND  event_key != :event_key1 ) ';
+		$stmnt='select * from nss_event_reg where (  event_id= :event_id     )  ';
 
 		// $stmnt=" SELECT * FROM nss_event_reg WHERE event_name= '" . $event_name ."' OR event_key= '" . $event_id ."' ";
 
 
 
 		$params=array( 
-			':event_id'   =>  $id  ,
-			':event_id1'   =>  $id  , 
-			':event_key'   =>  $event_id  ,
-			':event_key1'   =>  $event_id  
+			':event_id'   =>  $id  
 		);  
 
 		if($db->display($stmnt,$params)){
@@ -105,11 +104,10 @@ if(isset($_POST['submit-btn'])){
 
 
 
-			$params=array(
-				// 'event_key' 	=> $event_id,
-				// 'event_name'        =>  $event_name,
-				// 'event_date'       =>  $event_date,
-				// 'event_hrs'         =>  $event_hrs,
+			$params=array( 
+				'event_name'        =>  $event_name,
+				'event_date'       =>  $event_date,
+				'event_hrs'         =>  $event_hrs,
 				'event_dtls'            =>  $event_dtls
 			);
 
@@ -138,7 +136,7 @@ if(isset($_POST['submit-btn'])){
 				if ($result) {
 
 					$message [0] = 1;
-					$message [1] = ' event and coordinators are Updated '; 
+					$message [1] = ' event and coordinators are added '; 
 				}
 
 
@@ -184,41 +182,40 @@ if(isset($_POST['submit-btn'])){
 
 
 
+<?php
 
 
+$stmnt=" SELECT * FROM `nss_event_reg`  c LEFT JOIN nss_eve_cordntrs d  ON c.event_id = d.eve_id WHERE c.event_id = :id ";
 
-		<?php
+$params = array (
+	':id' => $id
+);
 
+$details = $db->display($stmnt,  $params );
 
-		$stmnt=" SELECT * FROM `nss_event_reg`  c LEFT JOIN nss_eve_cordntrs d  ON c.event_id = d.eve_id WHERE c.event_id = :id ";
+if (isset(  $details[0])) {
+	$details =   $details[0];
+}  else {
 
-		$params = array (
-			':id' => $id
-		);
-		
-		$details = $db->display($stmnt,  $params );
 
-		if (isset(  $details[0])) {
-			$details =   $details[0];
-		}  else {
+	setLocation("volunteer/viewevent");
+}
 
+?>
 
-			setLocation("volunteer/viewevent");
-		}
+<?php if($details): ?>
 
-		?>
 
-		<?php if($details): ?>
 
 
 
 
 
 
+	<div class="card">
+		<div class="card-body">
 
 
-			<div class="card">
-				<div class="card-body">
 
 
 
@@ -229,191 +226,178 @@ if(isset($_POST['submit-btn'])){
 
 
 
+			<form  id="addevent"  action="" method="post" class="form-horizontal borderd-row" align="center" data-parsley-validate >
 
+				<center>	<h3 class="h3 mb-3 font-weight-normal danger-text">Update Regular Activities</h3></center>
 
-					<form  id="addevent"  action="" method="post" class="form-horizontal borderd-row" align="center" data-parsley-validate >
 
-						<center>	<h3 class="h3 mb-3 font-weight-normal danger-text">Update Regular Activities</h3></center>
 
 
+				<?php echo show_error($message); ?>
 
+				
 
-						<?php echo show_error($message); ?>
 
-						<div class="form-group row">
-							<label for="exampleInputName2" class="col-sm-3 col-form-label">Event ID</label>
-							<div class="col-sm-9">
-								<input type="hidden" class="form-control text-success" name="event_id" placeholder="Event ID" data-parsley-required="true"    value="<?php echo  isit( 'event_key', $details); ?>" >
-								<input type="text" disabled class="form-control text-success" name="event_id" placeholder="Event ID" data-parsley-required="true"    value="<?php echo  isit( 'event_key', $details); ?>" >
-							</div>
-						</div>
 
+				<div class="form-group row">
+					<label for="exampleInputName2" class="col-sm-3 col-form-label">Event Name</label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control" name="event_name" placeholder="Event Name" data-parsley-required="true" value="<?php echo  isit( 'event_name', $details); ?>"  required>
+					</div>
+				</div>
 
 
 
-						<div class="form-group row">
-							<label for="exampleInputName2" class="col-sm-3 col-form-label">Event Name</label>
-							<div class="col-sm-9">
-								<input type="hidden" class="form-control" name="event_name" placeholder="Event Name" data-parsley-required="true" value="<?php echo  isit( 'event_name', $details); ?>"  required>
-								<input type="text" disabled class="form-control" name="event_name" placeholder="Event Name" data-parsley-required="true" value="<?php echo  isit( 'event_name', $details); ?>"  required>
-							</div>
-						</div>
-
-
-
-						<div class="form-group row">
-							<label for="exampleInputName2" class="col-sm-3 col-form-label">Event On</label>
-							<div class="col-sm-9">
-								<input type="hidden" class="form-control datetimepicker" data-date-format="YYYY-M-D" name="event_date"   value="<?php echo  isit( 'event_date', $details); ?>" placeholder=" Event On" data-parsley-required="true"  >
-								<input type="text" disabled class="form-control datetimepicker" data-date-format="YYYY-M-D" name="event_date"   value="<?php echo  isit( 'event_date', $details); ?>" placeholder=" Event On" data-parsley-required="true"  >
-
-							</div>
-						</div>
-
-
-						<div class="form-group row">
-							<label for="exampleInputName2" class="col-sm-3 col-form-label">Total Hours</label>
-							<div class="col-sm-9">
-
-								<input type="text" disabled class="form-control datetimepicker" value="<?php echo  isit( 'event_hrs', $details); ?>" data-date-format="H:mm" name="event_hrs" placeholder=" Event Hours" data-parsley-required="true"  >
-
-								<input type="hidden" class="form-control datetimepicker" value="<?php echo  isit( 'event_hrs', $details); ?>" data-date-format="H:mm" name="event_hrs" placeholder=" Event Hours" data-parsley-required="true"  >
-							</div>
-						</div>
-
-
-
-						<div class="form-group row">
-							<label for="exampleInputName2" class="col-sm-3 col-form-label">Objectives</label>
-							<div class="col-sm-9">
-
-								<textarea type="textarea" class="form-control" name="event_dtls" placeholder="Objective Of Event" data-parsley-required="true"   style="height: 100px"><?php echo  isit( 'event_dtls', $details); ?></textarea>
-
-							</div>
-						</div>
-
-
-
-
-						<center ><h5  class="text-capitalize mt-3 ">event coordinators</h5> </center>
-					</br>
-
-
-					<?php  
-					$result = selectFromTable( ' * ', '  `nss_vol_reg` v LEFT JOIN stud_details s ON v.admnno = s.admissionno   ' , "1  ORDER BY s.courseid, s.branch_or_specialisation , s.name ", $db); ?>
-
-
-					<div class="form-group row">
-						<label for="exampleInputcoordinator12" class="col-sm-3 col-form-label">coordinator 1:</label>
-						<div class="col-sm-9">
-
-
-							<select  id="exampleInputcoordinator12" type="textarea" class="form-control select2" name="eve_coordinator_1" placeholder="first event coordinator " data-parsley-required="true"   >
-								<option selected disabled > select first coordinator  </option>
-								<?php if ($result):?>
-									<?php foreach ($result as $key => $value): ?>
-
-
-										<option value="<?php echo $value['vol_id']; ?>" 
-											<?php if( isit( 'eve_cd_id1', $details)  == $value['vol_id'] ) echo " selected "; ?>
-
-											><?php echo ''.$value['name'] . ' ' . $value['admissionno']. ' ' . $value['courseid']. '-' . $value['branch_or_specialisation']; ?></option>
-
-
-
-										<?php endforeach;?>
-									<?php endif; ?>
-									<?php ?>
-									<?php ?>
-
-
-								</select> 
-							</div>
-						</div>
-
-
-
-
-						<div class="form-group row">
-							<label for="exampleInputcoordinator22" class="col-sm-3 col-form-label">coordinator 2:</label>
-							<div class="col-sm-9">
-
-
-								<select  id="exampleInputcoordinator22" type="textarea" class="form-control select2" name="eve_coordinator_2" placeholder="second event coordinator " data-parsley-required="true"   >
-									<option selected disabled > select second coordinator  </option>
-									<?php if ($result):?>
-										<?php foreach ($result as $key => $value): ?>
-
-
-											<option value="<?php echo $value['vol_id']; ?>"
-
-
-
-												<?php if( isit( 'eve_cd_id2', $details)  == $value['vol_id'] ) echo " selected "; ?>
-
-
-
-												><?php echo ''.$value['name'] . ' ' . $value['admissionno']. ' ' . $value['courseid']. '-' . $value['branch_or_specialisation']; ?></option>
-
-
-
-											<?php endforeach;?>
-										<?php endif; ?>
-										<?php ?>
-										<?php ?>
-
-
-									</select> 
-								</div>
-							</div>
-
-
-
-
-							<button type="submit"  class="btn btn-success mr-2 float-right"  name="submit-btn">Submit
-							</button>
-
-
-
-
-
-
-						</form>
-
-
-
-
-
+				<div class="form-group row">
+					<label for="exampleInputName2" class="col-sm-3 col-form-label">Event On</label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control datetimepicker" data-date-format="YYYY-M-D" name="event_date"   value="<?php echo  isit( 'event_date', $details); ?>" placeholder=" Event On" data-parsley-required="true"  >
 
 					</div>
+				</div>
 
+
+				<div class="form-group row">
+					<label for="exampleInputName2" class="col-sm-3 col-form-label">Total Hours</label>
+					<div class="col-sm-9">
+
+						<input type="text" class="form-control datetimepicker" value="<?php echo  isit( 'event_hrs', $details); ?>" data-date-format="H:mm" name="event_hrs" placeholder=" Event Hours" data-parsley-required="true"  >
+					</div>
+				</div>
+
+
+
+				<div class="form-group row">
+					<label for="exampleInputName2" class="col-sm-3 col-form-label">Objectives</label>
+					<div class="col-sm-9">
+
+						<textarea type="textarea" class="form-control" name="event_dtls" placeholder="Objective Of Event" data-parsley-required="true"   style="height: 100px"><?php echo  isit( 'event_dtls', $details); ?></textarea>
+
+					</div>
 				</div>
 
 
 
 
+				<center ><h5  class="text-capitalize mt-3 ">event coordinators</h5> </center>
+			</br>
+
+
+			<?php  
+			$result = selectFromTable( ' * ', '  `nss_vol_reg` v LEFT JOIN stud_details s ON v.admnno = s.admissionno   ' , "1  ORDER BY s.courseid, s.branch_or_specialisation , s.name ", $db); ?>
+
+
+			<div class="form-group row">
+				<label for="exampleInputcoordinator12" class="col-sm-3 col-form-label">coordinator 1:</label>
+				<div class="col-sm-9">
+
+
+					<select  id="exampleInputcoordinator12" type="textarea" class="form-control select2" name="eve_coordinator_1" placeholder="first event coordinator " data-parsley-required="true"   >
+						<option selected disabled > select first coordinator  </option>
+						<?php if ($result):?>
+							<?php foreach ($result as $key => $value): ?>
+
+
+								<option value="<?php echo $value['vol_id']; ?>" 
+									<?php if( isit( 'eve_cd_id1', $details)  == $value['vol_id'] ) echo " selected "; ?>
+
+									><?php echo ''.$value['name'] . ' ' . $value['admissionno']. ' ' . $value['courseid']. '-' . $value['branch_or_specialisation']; ?></option>
 
 
 
-			<?php endif; ?>
-
-		</div> 
-	</div>
-
-
+								<?php endforeach;?>
+							<?php endif; ?>
+							<?php ?>
+							<?php ?>
 
 
-
-
-
+						</select> 
+					</div>
+				</div>
 
 
 
 
+				<div class="form-group row">
+					<label for="exampleInputcoordinator22" class="col-sm-3 col-form-label">coordinator 2:</label>
+					<div class="col-sm-9">
+
+
+						<select  id="exampleInputcoordinator22" type="textarea" class="form-control select2" name="eve_coordinator_2" placeholder="second event coordinator " data-parsley-required="true"   >
+							<option selected disabled > select second coordinator  </option>
+							<?php if ($result):?>
+								<?php foreach ($result as $key => $value): ?>
+
+
+									<option value="<?php echo $value['vol_id']; ?>"
+
+
+
+										<?php if( isit( 'eve_cd_id2', $details)  == $value['vol_id'] ) echo " selected "; ?>
+
+
+
+										><?php echo ''.$value['name'] . ' ' . $value['admissionno']. ' ' . $value['courseid']. '-' . $value['branch_or_specialisation']; ?></option>
+
+
+
+									<?php endforeach;?>
+								<?php endif; ?>
+								<?php ?>
+								<?php ?>
+
+
+							</select> 
+						</div>
+					</div>
+
+
+
+
+					<button type="submit"  class="btn btn-success mr-2 float-right"  name="submit-btn">Submit
+					</button>
 
 
 
 
 
 
-	<?php include_once('includes/footer.php'); ?>
+				</form>
+
+
+
+
+
+
+			</div>
+
+		</div>
+
+
+
+
+
+
+
+	<?php endif; ?>
+
+</div> 
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?php include_once('includes/footer.php'); ?>

@@ -19,6 +19,7 @@
 
 
 
+
 <script src="assets/js/popper.min.js"></script>  
 <script src="assets/js/bootstrap-material-design.min.js"></script> 
 
@@ -38,6 +39,8 @@
 
 
 
+<script src="assets/js/parsley.min.js"></script>
+
 <script src="admin/js/main.js"></script>
 
 
@@ -47,6 +50,7 @@
 		// $('body').bootstrapMaterialDesign();
 
 
+		$('.datetimepicker').datetimepicker( );
 		$('.select2').select2();
 		$('.dataTable').DataTable();
 		$("time.timeago").timeago();

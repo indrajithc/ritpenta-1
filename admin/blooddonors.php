@@ -369,7 +369,9 @@ if(isset($_POST['submit'])){
 
 				<h1 class="h3 mb-3 font-weight-normal text-dark text-center">blood donors Details</h1>
 
-
+				<div class="pull-righ text-right float-right mb-5">
+					<a href="admin/blooddonors-export" class="btn btn-warning"> export </a>
+				</div>
 
 				<div class="table-responsive">
 

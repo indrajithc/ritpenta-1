@@ -4,7 +4,7 @@
  * @Author: indran
  * @Date:   2018-11-22 06:42:46
  * @Last Modified by:   indran
- * @Last Modified time: 2018-11-22 07:16:39
+ * @Last Modified time: 2018-12-25 16:31:16
  */ 
 
 include_once('includes/header.php'); ?>
@@ -14,11 +14,14 @@ include_once('includes/header.php'); ?>
 
 
 $reqGruop =  isit('group', $_GET);
+$reqGruop  = str_replace("1","+",$reqGruop );
+$reqGruop  = str_replace("0","-",$reqGruop );
+
 
 if ($reqGruop) {
 	$reqGruop = strtolower($reqGruop); 
 	$reqGruop = trim($reqGruop);
-	$ggRios = array('a+', 'a-');
+	$ggRios = array('a+', 'a-', 'b+', 'b-', 'ab+', 'ab-', 'o+', 'o-');
 
 
 	if (!in_array($reqGruop, $ggRios)) {
@@ -31,6 +34,7 @@ $details = array();
 $details = selectFromTable( ' * ', '  stud_details ',  "   admissionno IN ( SELECT bd_admno FROM nss_blood_donation WHERE bd_group != ''  ) OR admissionno IN ( SELECT admnno FROM nss_vol_reg WHERE vol_bg != ''  )    " , $db);
 
 if ($reqGruop && $reqGruop != '' ) {
+
 
 	$details = selectFromTable( ' * ', '  stud_details ',  "   admissionno IN ( SELECT bd_admno FROM nss_blood_donation WHERE bd_group = '$reqGruop'  ) OR admissionno IN ( SELECT admnno FROM nss_vol_reg WHERE vol_bg = '$reqGruop'  )    " , $db);
 }
@@ -56,11 +60,28 @@ if ($reqGruop && $reqGruop != '' ) {
 		<div class="row">
 			<div class="col">
 
-				<?php 
+				<form action="admin/blooddonorsall">
+
+					<select  type="text" name="group" class="form-control" required onchange="this.form.submit();">
+
+						<option disabled  selected  >Select Blood Group ...</option>
+						<option  value="O+" <?php if( strtolower( $reqGruop ) == "o+" ) echo " selected "; ?> >O+ve</option>
+						<option  value="O-" <?php if( strtolower( $reqGruop ) == "o-" ) echo " selected "; ?> >O-ve</option>
+						<option  value="B+" <?php if( strtolower( $reqGruop ) == "b+" ) echo " selected "; ?> >B+ve</option>
+						<option  value="B-" <?php if( strtolower( $reqGruop ) == "b-" ) echo " selected "; ?> >B-ve</option>
+						<option  value="A+" <?php if( strtolower( $reqGruop ) == "a+" ) echo " selected "; ?> >A+ve</option>
+						<option  value="A-" <?php if( strtolower( $reqGruop ) == "a-" ) echo " selected "; ?> >A-ve</option>
+						<option  value="AB+" <?php if( strtolower( $reqGruop ) == "ab+" ) echo " selected "; ?> >AB+ve</option>
+						<option  value="AB-" <?php if( strtolower( $reqGruop ) == "ab-" ) echo " selected "; ?> >AB-ve</option>
 
 
 
+					</select>
+				</form>
 
+				
+
+				<?php  
 
 				echo show_error($message); ?>
 

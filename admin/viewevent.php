@@ -64,114 +64,99 @@ if (isset($_POST['make_delete'])) {
 
 
 			
-</br>
+		</br>
 		
 		<center>	<h3 class="h3 mb-3 font-weight-normal danger-text">Regular Activities</h3></center>
 		
 
-</br>
+	</br>
 
 
 
-			<div class="table-responsive">
-				
-				<table class="table dataTable table-hover ">
-					<thead>
-						<tr>
-							<th scope="col">Event Key</th>
-							<th scope="col">Event name</th>
-							<th scope="col">Event date</th>
-							<th scope="col">Event working hours</th> 
-							<th class="text-uppercase">added time</th> 
-							<th class="text-uppercase">Status</th>
-							<th class="text-uppercase">more</th>
+	<div class="table-responsive">
+		
+		<table class="table dataTable table-hover ">
+			<thead>
+				<tr> 
+					<th scope="col">Event name</th>
+					<th scope="col">Event date</th>
+					<th scope="col">Event working hours</th> 
+					<th class="text-uppercase">added time</th> 
+					<th class="text-uppercase">Status</th>
+					<th class="text-uppercase">more</th>
+
+				</tr>
+			</thead>
+
+			<tbody>
+
+				<?php
+				$stmnt=' SELECT * FROM `nss_event_reg` ';
+
+				$details = $db->display($stmnt);
+
+				?>
+
+				<?php foreach ($details as $key => $value): ?>
+
+					<tr>
+						
+						<td><?php echo $value['event_name']; ?></td>
+
+						<td><?php echo $value['event_date']; ?></td>
+
+						<td><?php echo $value['event_hrs']; ?></td>
+
+
+
+
+						<td >
+
+							<time class="timeago" datetime="<?php echo isit('event_ddate', $value); ?>" title="<?php echo isit('event_ddate', $value); ?>">1 hour ago</time>
+
+
+
+						</td>
+
+						<td >
+							<form accept="" method="post"  onsubmit="return confirm('do you really want to continue this action ? ');">
+								<input type="hidden" name="id" value="<?php echo indexMe( (int) isit('event_id', $value, 0)); ?>">
+								<?php if( isit('event_delete', $value) == 0 ): ?>
+									<button class="btn btn-sm btn-danger" name="make_delete" value="1">Inactive</button>
+									<?php else: ?>
+										<button class="btn btn-sm btn-success" name="make_delete" value="0">active</button>
+									<?php endif; ?>
+								</form>
+
+
+							</td>
+							<td>
+								<a title="view" href="admin/viewevent/<?php echo indexMe((int)isit('event_id', $value, 0)); ?>" class="btn btn-sm btn-primary ">
+									<i class="ti-eye"></i>
+								</a>
+								<a title="edit" href="admin/editevent/<?php echo indexMe((int)isit('event_id', $value, 0)); ?>" class="btn btn-sm btn-warning ">
+									<i class="ti-pencil-alt"></i>
+								</a>
+							</td>
+
+
 
 						</tr>
-					</thead>
-
-					<tbody>
-
-						<?php
-						$stmnt=' SELECT * FROM `nss_event_reg` ';
-
-						$details = $db->display($stmnt);
-
-						?>
-
-						<?php foreach ($details as $key => $value): ?>
-
-							<tr>
-
-								<td><?php echo $value['event_key']; ?></td>
-								<td><?php echo $value['event_name']; ?></td>
-
-								<td><?php echo $value['event_date']; ?></td>
-
-								<td><?php echo $value['event_hrs']; ?></td>
 
 
+					<?php endforeach; ?>
+				</tbody>
+			</table>
 
 
-								<td >
-
-									<time class="timeago" datetime="<?php echo isit('event_ddate', $value); ?>" title="<?php echo isit('event_ddate', $value); ?>">1 hour ago</time>
-
-
-
-								</td>
-
-								<td >
-									<form accept="" method="post">
-										<input type="hidden" name="id" value="<?php echo indexMe( (int) isit('event_id', $value, 0)); ?>">
-										<?php if( isit('event_delete', $value) == 0 ): ?>
-											<button class="btn btn-sm btn-danger" name="make_delete" value="1">Inactive</button>
-											<?php else: ?>
-												<button class="btn btn-sm btn-success" name="make_delete" value="0">active</button>
-											<?php endif; ?>
-										</form>
-
-
-									</td>
-									<td>
-										<a title="view" href="admin/viewevent/<?php echo indexMe((int)isit('event_id', $value, 0)); ?>" class="btn btn-sm btn-primary ">
-											<i class="ti-eye"></i>
-										</a>
-										<a title="edit" href="admin/editevent/<?php echo indexMe((int)isit('event_id', $value, 0)); ?>" class="btn btn-sm btn-warning ">
-											<i class="ti-pencil-alt"></i>
-										</a>
-									</td>
-
-
-
-								</tr>
-
-
-							<?php endforeach; ?>
-						</tbody>
-					</table>
-
-
-				</div>
-
-
-
-
-
-			</div> 
 		</div>
 
 
 
 
 
-
-
-
-
-
-
-
-	</div>
+	</div> 
+</div>
 
 
 
@@ -180,4 +165,17 @@ if (isset($_POST['make_delete'])) {
 
 
 
-	<?php include_once('includes/footer.php'); ?>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<?php include_once('includes/footer.php'); ?>

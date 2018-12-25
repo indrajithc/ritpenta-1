@@ -137,12 +137,12 @@ footer {
 
         <?php if (isset($_GET['vol_bg'])): ?>
           <div class="form-group" >
-            <input class="form-control" style=" color: red; font-size: 2rem; " type="text" id="reqdate" value="<?php echo $blg . ' blood donor available '; ?>" readonly >
+            <input class="form-control " style=" color: red; font-size: 2rem; display: none; " type="text" id="reqdate" value="<?php echo $blg . ' blood donor available '; ?>" readonly >
           </div>
         <?php endif; ?>
       </form>
 
-      <?php if( $blg  > 0 ): ?>
+      <?php if( $blg  > 0 || true ): ?>
 
         <form class="form-horizontal bordered-row" id="bldreq"  action="" method="post" data-parsley-validate>
 

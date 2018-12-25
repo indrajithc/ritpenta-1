@@ -85,6 +85,8 @@ RewriteRule ^admin/imageaward/([^/]+)$ admin/imageaward.php?id=$1 [L]
 RewriteRule ^admin/brequest$ admin/brequest.php [L] 
 RewriteRule ^admin/blooddonorsall$ admin/blooddonorsall.php [L] 
 
+RewriteRule ^admin/blooddonors-export$ admin/blooddonors-export.php [L] 
+
 RewriteRule ^admin/brequest$ admin/brequest.php [L] 
 RewriteRule ^admin/brequest/([^/]+)$ admin/brequesteach.php?id=$1 [L] 
 
@@ -116,6 +118,18 @@ RewriteRule ^volunteer/editevent/([^/]+)$ volunteer/editevent.php?id=$1 [L]
 RewriteRule ^volunteer/imageevent/([^/]+)$ volunteer/imageevent.php?id=$1 [L] 
 RewriteRule ^volunteer/eventparticipant/([^/]+)$ volunteer/eventparticipant.php?id=$1 [L] 
 
+RewriteRule ^volunteer/addcamp$ volunteer/addcamp.php [L]
+
+
+
+RewriteRule ^volunteer/addcamp$ volunteer/addcamp.php [L]
+RewriteRule ^volunteer/viewcamp$ volunteer/viewcamp.php [L]
+
+
+RewriteRule ^volunteer/viewcamp/([^/]+)$ volunteer/viewsingecamp.php?id=$1 [L] 
+RewriteRule ^volunteer/editcamp/([^/]+)$ volunteer/editcamp.php?id=$1 [L] 
+
+
 
 RewriteRule ^volunteer/addvol$	 volunteer/addvol.php [L]  
 RewriteRule ^volunteer/viewvol$	 volunteer/viewvol.php [L]  
@@ -124,6 +138,18 @@ RewriteRule ^volunteer/viewvol/([^/]+)$ volunteer/fulviewvol.php?id=$1 [L]
 RewriteRule ^volunteer/edit_vol/([^/]+)$ volunteer/edit_vol.php?id=$1 [L] 
 
 RewriteRule ^volunteer/blooddonors$	 volunteer/blooddonors.php [L]  
+
+
+
+
+RewriteRule ^volunteer/addevent$ volunteer/addevent.php [L]
+RewriteRule ^volunteer/viewevent$ volunteer/viewevent.php [L]
+
+
+RewriteRule ^volunteer/viewevent/([^/]+)$ volunteer/viewsingeevent.php?id=$1 [L] 
+RewriteRule ^volunteer/editevent/([^/]+)$ volunteer/editevent.php?id=$1 [L] 
+
+
 
 
 

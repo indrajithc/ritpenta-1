@@ -62,7 +62,7 @@
 <li class="nav-item">
 	<a class="nav-link" data-toggle="collapse" href="#event-dropdown" aria-expanded="false" aria-controls="event-dropdown">
 		<i class="fas fa-tachometer-alt  pr-4"></i>
-		<span class="menu-title">Event</span>
+		<span class="menu-title">Regular Activities</span>
 		<i class="menu-arrow"></i>
 	</a>
 	<div class="collapse" id="event-dropdown">

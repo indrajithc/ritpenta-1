@@ -4,7 +4,7 @@
  * @Author: indran
  * @Date:   2018-10-17 16:48:54
  * @Last Modified by:   indran
- * @Last Modified time: 2018-11-24 16:49:26
+ * @Last Modified time: 2018-12-25 18:15:42
  */
 
 
@@ -116,7 +116,22 @@ $message=array(null,null);
 
 					<li class="nav-item  ml-4" >
 						<form action="admin/blooddonorsall">
-							<input type="text" name="group" class="form-control" placeholder="Enter Blood Group ..."> 
+
+							<select  type="text" name="group" class="form-control" required onchange="this.form.submit();">
+
+								<option disabled  selected  >Select Blood Group ...</option>
+								<option  value="O1"   >O+ve</option>
+								<option  value="O0"   >O-ve</option>
+								<option  value="B1"   >B+ve</option>
+								<option  value="B0"   >B-ve</option>
+								<option  value="A1"   >A+ve</option>
+								<option  value="A0"   >A-ve</option>
+								<option  value="AB1"   >AB+ve</option>
+								<option  value="AB0"   >AB-ve</option>
+
+
+
+							</select>
 						</form>
 					</li>
 

@@ -29,12 +29,55 @@
 </li>
 -->
 
-<li class="nav-item">
+<!-- <li class="nav-item">
 	<a class="nav-link" href="volunteer/viewcamp">
 		<i class="fas fa-tachometer-alt  pr-4"></i>
 		<span class="menu-title" >Camp Acivities</span>
 	</a>
 </li>
+-->
+<li class="nav-item">
+	<a class="nav-link" data-toggle="collapse" href="#camp-dropdown" aria-expanded="false" aria-controls="camp-dropdown">
+		<i class="fas fa-tachometer-alt  pr-4"></i>
+		<span class="menu-title">Camp</span>
+		<i class="menu-arrow"></i>
+	</a>
+	<div class="collapse" id="camp-dropdown">
+		<ul class="nav flex-column sub-menu">
+			<li class="nav-item">
+				<a class="nav-link" href="volunteer/addcamp">Add</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="volunteer/viewcamp">View</a>
+			</li>
+		</ul>
+	</div>
+</li>
+
+
+
+
+
+
+<li class="nav-item">
+	<a class="nav-link" data-toggle="collapse" href="#event-dropdown" aria-expanded="false" aria-controls="event-dropdown">
+		<i class="fas fa-tachometer-alt  pr-4"></i>
+		<span class="menu-title">Regular Activities</span>
+		<i class="menu-arrow"></i>
+	</a>
+	<div class="collapse" id="event-dropdown">
+		<ul class="nav flex-column sub-menu">
+			<li class="nav-item">
+				<a class="nav-link" href="volunteer/addevent">Add</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="volunteer/viewevent">View</a>
+			</li>
+		</ul>
+	</div>
+</li>
+
+
 
 
 <li class="nav-item">
