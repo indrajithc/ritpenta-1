@@ -28,6 +28,7 @@ function imageToCamp ($post, $files) {
 	{
 		if(is_uploaded_file($files['croppedImage']['tmp_name']))
 		{ 
+			
 			$source_path = $files['croppedImage']['tmp_name'];
 			$filename =  $files['croppedImage']['name'];
 			$filename = md5($filename . microtime());
